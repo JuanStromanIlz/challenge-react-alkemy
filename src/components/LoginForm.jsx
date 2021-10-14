@@ -1,4 +1,6 @@
 import { Formik, Form, Field } from 'formik';
+import StyledForm from 'styled-components/Form';
+import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
 
 const LogInSchema = Yup.object().shape({
@@ -23,11 +25,27 @@ export default function LoginForm({onSubmit}) {
       >
         {({ errors, touched }) => (
           <Form>
-            <Field name="email" type="email" />
-            {errors.email && touched.email ? <div>{errors.email}</div> : null}
-            <Field name="password" type="password" />
-            {errors.password && touched.password ? <div>{errors.password}</div> : null}
-            <button type="submit">Submit</button>
+            <StyledForm>
+              <StyledForm.Group>
+                <StyledForm.Label>Email</StyledForm.Label>
+                <Field name='email' type='email' placeholder='Enter email' />
+                {errors.email && touched.email ?
+                  <StyledForm.Text className='text-muted'>
+                    {errors.email}
+                  </StyledForm.Text>
+                : null}
+              </StyledForm.Group>
+              <StyledForm.Group>
+                <StyledForm.Label>Password</StyledForm.Label>
+                <Field name='password' type='password' placeholder='Enter password' />
+                {errors.password && touched.password ?
+                  <StyledForm.Text className='text-muted'>
+                    {errors.password}
+                  </StyledForm.Text>
+                : null}
+              </StyledForm.Group>
+              <Button type='submit'>Submit</Button>
+            </StyledForm>
           </Form>
         )}
       </Formik>
