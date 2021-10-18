@@ -32,8 +32,11 @@ export default function TeamContext({children}) {
     if (teamIsEmpty) {
       throw new Error('Team is empty.');
     }
-
+    
     setTeam(prevTeam => prevTeam.filter(hero => hero.id !== id));
+
+    localStorage.setItem('superheroTeam', JSON.stringify(team));
+    
     return 'Hero removed successfully';
   }
 

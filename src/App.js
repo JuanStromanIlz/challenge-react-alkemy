@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyles, theme } from 'styled-components/GlobalStyles';
 import Search from 'pages/Search';
 import TeamContext from 'context/TeamContext';
+import Test from 'pages/Test';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <GlobalStyles />
         <Router>
           <Switch>
+            <Route path='/test' component={Test} />
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute path='/search/:name' component={Search} />
             <Route path='/login' component={Login} />

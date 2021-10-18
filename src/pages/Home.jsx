@@ -3,9 +3,11 @@ import Wrapper from 'styled-components/Wrapper';
 import { useContext, useEffect } from 'react';
 import { Team } from 'context/TeamContext';
 import { useState } from 'react';
+import TeamCard from 'components/TeamCard';
+import HeroCard from 'components/HeroCard';
 
 export default function Home() {
-  const { team } = useContext(Team);
+  const { team, removeHero } = useContext(Team);
   const [teamStats, setTeamStats] = useState({});
 
   useEffect(()=> {
@@ -38,17 +40,25 @@ export default function Home() {
 
     function weightAndHeight(team) {
 
-      let globalStats = [];
+      let globalStats = {};
 
-      let teamStats = team.map(team => ({height: team.appearance.height[1], weight: team.appearance.weight[1]}));
-      // let keyInObjects = Object.keys(teamStats[0]);
-      // for (let i = 0; i < keyInObjects.length; i++) {
-      //   let key = keyInObjects[i];
-      //   let valuePerHero = teamStats.map(hero => hero[key]);
+      const sliceValue = (string) => parseInt(string.slice(0, -3));
 
-      //   globalStats.push([key, sumStats(valuePerHero)]);
-      // }
-      console.log(teamStats);
+      let teamStats = team.map(team => (
+        {
+          height: sliceValue(team.appearance.height[1]), 
+          weight: sliceValue(team.appearance.weight[1])
+        }
+      ));
+      let keyInObjects = Object.keys(teamStats[0]);
+      for (let i = 0; i < keyInObjects.length; i++) {
+        let key = keyInObjects[i];
+        let valuePerHero = teamStats.map(hero => hero[key]);
+
+        globalStats[key] =  (sumStats(valuePerHero) / team.length).toFixed(2);
+      }
+
+      setTeamStats(team => ({...team, ...globalStats}));
     }
     
     globalStats(team);
@@ -57,8 +67,9 @@ export default function Home() {
 
   return (
     <Wrapper>
-      <Navbar />
-      <h1>Home</h1>
+      {/* <Navbar /> */}
+      <TeamCard teamStats={teamStats} />
+      {team.map(hero => <HeroCard removeHero={removeHero} key={hero.id} hero={hero} />)}
     </Wrapper>
   );
 }
