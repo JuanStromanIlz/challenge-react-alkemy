@@ -1,5 +1,7 @@
 import Navbar from 'components/Navbar';
-import Wrapper from 'styled-components/Wrapper';
+import { Wrapper, TeamContainer, InfoTeam } from 'styled-components/Wrapper';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { useContext, useEffect } from 'react';
 import { Team } from 'context/TeamContext';
 import { useState } from 'react';
@@ -67,9 +69,24 @@ export default function Home() {
 
   return (
     <Wrapper>
-      {/* <Navbar /> */}
-      <TeamCard teamStats={teamStats} />
-      {team.map(hero => <HeroCard removeHero={removeHero} key={hero.id} hero={hero} />)}
+      <Row>
+        <Navbar />
+      </Row>
+      <Row>
+        <InfoTeam xs={12} lg={3}>
+          <TeamCard teamStats={teamStats} />
+        </InfoTeam>
+        <TeamContainer xs={12} lg={9}>
+          <Row>
+            {team.map(hero =>
+              <Col className='card-container' xs={12} md={6} lg={6} xl={4}>
+                <HeroCard removeHero={removeHero} key={hero.id} hero={hero} />
+              </Col>
+            )}
+            <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
+          </Row>
+        </TeamContainer>
+      </Row>
     </Wrapper>
   );
 }

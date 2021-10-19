@@ -7,13 +7,14 @@ export const StyledButton = styled(Button)`
   outline: ${props => props.variant.color};
   box-shadow: 0px 2px 4px rgba(0,0,0,0.18); 
   border: none;
-  border-radius: 25px;
+  border-radius: 0px;
   padding: .3rem 1.3rem;
   height: fit-content;
   font-weight: 600;
   text-transform: capitalize;
   &:focus, &:active {
     box-shadow: 0px 0px 0px 2px ${props => props.variant.background};
+    box-shadow: inherit;
   }
   @media (hover: hover) {
     &:hover {

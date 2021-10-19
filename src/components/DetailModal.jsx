@@ -4,7 +4,7 @@ import { CardList } from 'styled-components/Card';
 
 export function DetailModal({hero, show, handleClose}) {
   return (
-    <StyledModal show={show} onHide={handleClose} animation={true} autoFocus={true} centered={true}>
+    <StyledModal show={show} onHide={handleClose} animation={true} centered={true}>
       <StyledModal.Header closeButton>
         <StyledModal.Title>Detail</StyledModal.Title>
       </StyledModal.Header>

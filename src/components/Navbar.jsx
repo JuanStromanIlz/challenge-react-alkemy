@@ -1,39 +1,34 @@
-import Nav from 'react-bootstrap/Nav';
-import StyledForm from 'styled-components/Form';
-import Button from 'react-bootstrap/Button';
-import styled from 'styled-components';
-
-const StyledNav = styled(Nav)`
-  background: ${props => props.theme.grey};
-  .icon {
-    margin-right: 16px;
-  }
-  .searchInput {
-    display: flex;
-    flex-direction: row;
-    input {
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
-    button {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-    }
-  }
-`;
+import { StyledNavbar } from 'styled-components/Navbar';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { SearchForm } from 'styled-components/Form';
+import { StyledButton, dark } from 'styled-components/Button';
 
 export default function Navbar() {
   return (
-    <StyledNav>
-      <div className='icon'>
-        <h1>ST</h1>
-      </div>
-      <StyledForm onSubmit={(e)=> console.log(e)}>
-        <div className='searchInput'>
-          <StyledForm.Control placeholder='Search a hero' />
-          <Button type='sbmit'>search</Button>
-        </div>
-      </StyledForm>
-    </StyledNav>
+    <StyledNavbar>
+      <Container fluid>
+        <Col xs='auto' lg={3}>
+          <StyledNavbar.Brand href='/'>
+            <img
+              alt=''
+              src='/logo.svg'
+              width='30'
+              height='30'
+              className='d-inline-block align-top'
+            />
+          </StyledNavbar.Brand>
+        </Col>
+        <Col xs='auto' lg={5}>
+          <SearchForm onSubmit={(e)=> console.log(e)}>
+            <div className='searchInput'>
+              <SearchForm.Control size='sm' placeholder='Search a hero' />
+              <StyledButton className='material-icons' variant={dark} type='submit'>search</StyledButton>
+            </div>
+          </SearchForm>
+        </Col>
+      </Container>
+    </StyledNavbar>
   );
 }

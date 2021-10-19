@@ -9,6 +9,8 @@ export const StyledModal = styled(Modal)`
     min-height: calc(100% - 2rem);
   } */}
   & .modal-content {
+    border: none;
+    border-radius: 0px;
     background: ${props => props.theme.white};
     > * {
       padding: 1rem;

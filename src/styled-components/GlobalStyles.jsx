@@ -6,14 +6,13 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Lato', sans-serif;
-    ${'' /* background: ${props => props.theme.black};
+    ${'' /* background: ${props => props.theme.blackL};
     color: ${props => props.theme.white}; */}
     .material-icons {
       font-family: 'Material Icons';
-      color: ${props => props.theme.black};
       font-weight: normal;
       font-style: normal;
-      font-size: 24px;  /* Preferred icon size */
+      font-size: 24px;
       display: inline-block;
       line-height: 1;
       text-transform: none;
