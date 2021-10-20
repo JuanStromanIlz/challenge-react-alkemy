@@ -5,6 +5,7 @@ import styled from 'styled-components';
 export const StyledCard = styled(Card)`
   border: none;
   border-radius: 0px;
+  background: inherit;
   & .card-img {
     border: none;
     border-radius: 0px;
@@ -12,7 +13,7 @@ export const StyledCard = styled(Card)`
   & .card-img-overlay {
     border: none;
     border-radius: 0px;
-    background: ${props => props.theme.white};
+    background: linear-gradient(180deg, ${props => props.theme.darkShadesTransparent} 70%, transparent 100%);
     box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
     height: fit-content;
     display: flex;
@@ -24,6 +25,7 @@ export const StyledCard = styled(Card)`
     padding-top: 0;
   }
   & .card-body {
+    background: ${props => props.theme.main};
     box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
     .card-title {
       padding-top: 0; 
@@ -34,7 +36,7 @@ export const StyledCard = styled(Card)`
     margin: auto;
   }
   & .card-icons-white {
-    color: ${props => props.theme.white};
+    color: ${props => props.theme.lightAccent};
   }
   & .card-actions {
     display: flex;
@@ -47,7 +49,9 @@ export const StyledCard = styled(Card)`
     }
   }
   & .card-title {
-    color: ${props => props.theme.black};
+    filter: saturate(200%);
+    text-shadow: 1px 1px ${props => props.theme.darkShades};
+    color: ${props => props.theme.lightAccent};
     padding-top: 1.5rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -62,9 +66,9 @@ export const StyledCard = styled(Card)`
     inset: 0;
     transform: rotateY(180deg);
     padding: .5rem;
-    background: ${props => props.theme.white};
+    background: ${props => props.theme.lightShades};
     .back-container {
-      background: ${props => props.theme.white};
+      background: transparent;
       box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.18);
       width: 100%;
       height: 100%;
@@ -103,6 +107,8 @@ export const CardList = styled(ListGroup)`
   display: grid;
   grid-template-columns: 50% 50%;
   & .list-group-item {
+    color: ${props => props.theme.lightAccent};
+    filter: saturate(200%);
     background: transparent;
     padding: 0;
     border: none;
@@ -110,15 +116,11 @@ export const CardList = styled(ListGroup)`
     flex-direciton: row;
     margin-bottom: .125rem;
     .title {
+      ${'' /* text-shadow: 1px 1px ${props => props.theme.black}; */}
       font-weight: bold;
-      margin-right: .25rem;
+      margin-right: .5rem;
       text-transform: capitalize;
     }
-    ${'' /* span:last-child {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    } */}
   }
   & .list-group-item:last-child {
     margin-bottom: 0;

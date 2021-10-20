@@ -10,6 +10,16 @@ const StyledForm = styled(Form)`
   }
   & .form-control {
     border-radius: 0px;
+    border: inherit;
+    background: transparent;
+    color: #fff;
+    :focus {
+      box-shadow: 0 2px 1px ${props => props.theme.lightAccent};
+      box-shadow: inherit;
+    }
+    ::placeholder {
+      color: ${props => props.theme.lightAccent};
+    }
   }
 `;
 

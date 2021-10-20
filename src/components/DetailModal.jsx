@@ -1,5 +1,5 @@
 import { StyledModal } from 'styled-components/Modal';
-import { StyledButton, dark } from 'styled-components/Button';
+import { StyledButton, info } from 'styled-components/Button';
 import { CardList } from 'styled-components/Card';
 
 export function DetailModal({hero, show, handleClose}) {
@@ -38,7 +38,7 @@ export function DetailModal({hero, show, handleClose}) {
         </CardList>
       </StyledModal.Body>
       <StyledModal.Footer>
-        <StyledButton variant={dark} onClick={handleClose}>
+        <StyledButton variant={info} onClick={handleClose}>
           Close
         </StyledButton>
       </StyledModal.Footer>

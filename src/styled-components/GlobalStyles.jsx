@@ -6,8 +6,7 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Lato', sans-serif;
-    ${'' /* background: ${props => props.theme.blackL};
-    color: ${props => props.theme.white}; */}
+    background: ${props => props.theme.darkShades};
     .material-icons {
       font-family: 'Material Icons';
       font-weight: normal;
@@ -38,25 +37,21 @@ export const GlobalStyles = createGlobalStyle`
   :before {
     box-sizing: border-box;
   }
-  ${'' /* h1, h2, h3, h4, h5, h6, p, a {
-    margin: 0;
-    padding: 0;
-    font-weight: inherit;
-    font-style: inherit;
-  } */}
 `;
 
-export const theme = {
-  white: '#F5F3F4',
-  grey: '#D3D3D3',
-  greyD: '#B1A7A6',
-  main: '#BA181B',
-  mainS: '#A4161A',
-  mainL: '#E5383B',
-  mainD: '#660708',
-  blackL: '#161A1D',
-  black: '#0B090A',
+export const newTheme = {
+  main: 'rgb(186, 24, 27)',
+  darkShades: 'rgb(22, 21, 28)',
+  darkShadesTransparent: 'rgba(22, 21, 28, .6)',
+  darkAccent: 'rgb(131, 124, 148)',
+  lightShades: 'rgb(139, 134, 136)',
+  lightAccent: 'rgb(242, 247, 248)',
   states: {
-    danger: '#D11A2A'
+    default: '#999999',
+    primary: 'rgb(186, 24, 27)',
+    info: 'rgb(8, 8, 9)',
+    success: 'rgb(109, 130, 64)',
+    warning: 'rgb(234, 114, 8)',
+    danger: 'rgb(244, 67, 54)'
   }
 }

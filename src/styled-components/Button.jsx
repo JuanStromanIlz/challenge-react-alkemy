@@ -27,12 +27,32 @@ export const StyledButton = styled(Button)`
 
 /* Variants */
 
-export const dark = {
-  color: props => props.theme.white,
-  background: props => props.theme.black
+export const def = {
+  color: '#fff',
+  background: props => props.theme.states.default
+}
+
+export const primary = {
+  color: '#fff',
+  background: props => props.theme.states.primary
+};
+
+export const success = {
+  color: '#fff',
+  background: props => props.theme.states.success
+};
+
+export const warning = {
+  color: '#fff',
+  background: props => props.theme.states.warning
+};
+
+export const info = {
+  color: '#fff',
+  background: props => props.theme.states.info
 };
 
 export const danger = {
-  color: props => props.theme.white,
+  color: '#fff',
   background: props => props.theme.states.danger
 }

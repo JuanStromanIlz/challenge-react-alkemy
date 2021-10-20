@@ -1,5 +1,5 @@
 import { StyledModal } from 'styled-components/Modal';
-import { StyledButton, dark, danger } from 'styled-components/Button';
+import { StyledButton, def, danger } from 'styled-components/Button';
 
 export function DeleteModal({name, show, handleClose, action}) {
   return (
@@ -9,7 +9,7 @@ export function DeleteModal({name, show, handleClose, action}) {
       </StyledModal.Header>
       <StyledModal.Body>Are you sure to delete <strong>{name}</strong> from your team?</StyledModal.Body>
       <StyledModal.Footer>
-        <StyledButton variant={dark} onClick={handleClose}>
+        <StyledButton variant={def} onClick={handleClose}>
           Cancel
         </StyledButton>
         <StyledButton variant={danger} onClick={action}>

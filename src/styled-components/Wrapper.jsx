@@ -3,7 +3,11 @@ import Container from 'react-bootstrap/Container';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
-  ${'' /* padding: .8rem; */}
+  .navbar-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
   .hero-cards {
     & .col-auto {
       padding-bottom: calc(var(--bs-gutter-x) * .5);
@@ -16,6 +20,10 @@ const StyledContainer = styled(Container)`
 
 export const InfoTeam = styled(Col)`
   padding-top: calc(var(--bs-gutter-x) * .5);
+  @media (min-width: 1200px) {
+    position: sticky;
+    top: calc(var(--bs-gutter-x) * .5);
+  }
 `;
 
 export const TeamContainer = styled(Col)`

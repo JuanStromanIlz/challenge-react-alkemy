@@ -15,6 +15,8 @@ export default function Home() {
   useEffect(()=> {
     
     const sumStats = (stats) => stats.reduce((a, b) => a + parseInt(b), 0);
+
+    const teamIsEmpty = (team) => team.length === 0;
     
     function globalStats(team) {
 
@@ -63,13 +65,15 @@ export default function Home() {
       setTeamStats(team => ({...team, ...globalStats}));
     }
     
-    globalStats(team);
-    weightAndHeight(team);
+    if (!teamIsEmpty(team)) {
+      globalStats(team);
+      weightAndHeight(team);
+    }
   }, [team]);
 
   return (
     <Wrapper>
-      <Row>
+      <Row className='navbar-sticky'>
         <Navbar />
       </Row>
       <Row>
@@ -78,11 +82,11 @@ export default function Home() {
         </InfoTeam>
         <TeamContainer xs={12} lg={9}>
           <Row>
-            {team.map(hero =>
+            {team.length > 0 ? team.map(hero =>
               <Col className='card-container' xs={12} md={6} lg={6} xl={4}>
                 <HeroCard removeHero={removeHero} key={hero.id} hero={hero} />
               </Col>
-            )}
+            ): <p>No hay equipo</p>}
             <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
           </Row>
         </TeamContainer>

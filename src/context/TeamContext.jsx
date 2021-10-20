@@ -1,11 +1,11 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import teamJSON from '../team.json';
 
 const Team = createContext();
 const {Consumer, Provider} = Team;
 
 export default function TeamContext({children}) {
-  const [team, setTeam] = useState([...teamJSON]);
+  const [team, setTeam] = useState([]);
 
   function addHero(newHero) {
 
@@ -20,8 +20,12 @@ export default function TeamContext({children}) {
       throw new Error(`You need to pickup a hero with ${newHero.biography.alignment === 'good' ? 'bad' : 'good' } alignment, the ${newHero.biography.alignment} side is already full.`);
     }
 
-    setTeam(prevTeam => [...prevTeam, newHero]);
-    localStorage.setItem('superheroTeam', JSON.stringify(team));
+    setTeam(prevTeam => {
+      let newTeam = [...prevTeam, newHero];
+      localStorage.setItem('superheroTeam', JSON.stringify(newTeam));
+      return newTeam;
+    });
+
     return 'Hero added successfully.';
   }
 
@@ -33,12 +37,22 @@ export default function TeamContext({children}) {
       throw new Error('Team is empty.');
     }
     
-    setTeam(prevTeam => prevTeam.filter(hero => hero.id !== id));
-
-    localStorage.setItem('superheroTeam', JSON.stringify(team));
+    setTeam(prevTeam => {
+      let newTeam = prevTeam.filter(hero => hero.id !== id);
+      localStorage.setItem('superheroTeam', JSON.stringify(newTeam));
+      return newTeam;
+    });
     
     return 'Hero removed successfully';
   }
+
+  useEffect(()=> {
+    let localTeam = localStorage.getItem('superheroTeam');
+
+    if (localTeam) {
+      setTeam(JSON.parse(localTeam));
+    }
+  }, []);
 
   return (
     <Provider value={{

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { StyledCard, CardList } from 'styled-components/Card';
-import { StyledButton, dark, danger } from 'styled-components/Button';
+import { StyledButton, info, warning } from 'styled-components/Button';
 import { DeleteModal } from './DeleteModal';
 
 export default function HeroCard({hero, removeHero}) {
@@ -26,8 +26,8 @@ export default function HeroCard({hero, removeHero}) {
           <StyledCard.Img src={hero.image.url} alt={hero.name} />
           <StyledCard.ImgOverlay>
             <div className='card-actions'>
-              <StyledButton className='material-icons' variant={dark} onClick={flipCard}>info</StyledButton>
-              <StyledButton className='material-icons' variant={danger} onClick={openDeleteModal}>delete_outline</StyledButton>
+              <StyledButton className='material-icons' variant={info} onClick={flipCard}>info</StyledButton>
+              <StyledButton className='material-icons' variant={warning} onClick={openDeleteModal}>delete_outline</StyledButton>
             </div>
             <StyledCard.Title>{hero.name}</StyledCard.Title>
             <CardList>
@@ -46,7 +46,7 @@ export default function HeroCard({hero, removeHero}) {
         <div className='card-back'>
           <div className='back-container'>
             <div className='return-box'>
-              <StyledButton className='material-icons' variant={dark} onClick={flipCard}>reply</StyledButton>
+              <StyledButton className='material-icons' variant={info} onClick={flipCard}>reply</StyledButton>
             </div>
             <CardList>
               <CardList.Item>
