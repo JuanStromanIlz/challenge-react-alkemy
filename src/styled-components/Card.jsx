@@ -9,6 +9,7 @@ export const StyledCard = styled(Card)`
   & .card-img {
     border: none;
     border-radius: 0px;
+    aspect-ratio: 3 / 4;
   }
   & .card-img-overlay {
     border: none;
@@ -23,13 +24,6 @@ export const StyledCard = styled(Card)`
     margin-right: .5rem;
     margin-bottom: .5rem;
     padding-top: 0;
-  }
-  & .card-body {
-    background: ${props => props.theme.main};
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-    .card-title {
-      padding-top: 0; 
-    }
   }
   & .card-icons {
     display: block;
@@ -66,10 +60,20 @@ export const StyledCard = styled(Card)`
     inset: 0;
     transform: rotateY(180deg);
     padding: .5rem;
-    background: ${props => props.theme.lightShades};
+    background: ${props => props.theme.main};
+    .back-img {
+      opacity: .3;
+      position: absolute;
+      inset: 2.5rem;
+      background: url(${process.env.PUBLIC_URL + '/icon.svg'});
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
     .back-container {
-      background: transparent;
-      box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.18);
+      overflow: hidden;
+      box-shadow: 0px 0px 0px 2px ${props => props.theme.states.danger};
       width: 100%;
       height: 100%;
       margin: 0;
@@ -106,6 +110,9 @@ export const StyledCard = styled(Card)`
 export const CardList = styled(ListGroup)`
   display: grid;
   grid-template-columns: 50% 50%;
+  ${'' /* span {
+    color: ${props => props.theme.lightAccent};
+  } */}
   & .list-group-item {
     color: ${props => props.theme.lightAccent};
     filter: saturate(200%);
@@ -116,10 +123,13 @@ export const CardList = styled(ListGroup)`
     flex-direciton: row;
     margin-bottom: .125rem;
     .title {
-      ${'' /* text-shadow: 1px 1px ${props => props.theme.black}; */}
       font-weight: bold;
       margin-right: .5rem;
       text-transform: capitalize;
+    }
+    .value {
+      filter: saturate(200%);
+      color: ${props => props.theme.states.info};
     }
   }
   & .list-group-item:last-child {

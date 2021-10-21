@@ -2,18 +2,13 @@ import Modal from 'react-bootstrap/Modal';
 import styled from 'styled-components';
 
 export const StyledModal = styled(Modal)`
-  ${'' /* & .modal-dialog {
-    margin: 1rem;
-  }
-  & .modal-dialog-centered {
-    min-height: calc(100% - 2rem);
-  } */}
   & .modal-content {
     border: none;
     border-radius: 0px;
-    background: ${props => props.theme.white};
+    background: ${props => props.theme.lightAccent};
     > * {
       padding: 1rem;
+      border: none;
     }
   }
 `;

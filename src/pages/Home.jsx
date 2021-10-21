@@ -1,5 +1,6 @@
 import Navbar from 'components/Navbar';
-import { Wrapper, TeamContainer, InfoTeam } from 'styled-components/Wrapper';
+import { StyledContainer } from 'styled-components/Container';
+import { StyledCol } from 'styled-components/Col';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useContext, useEffect } from 'react';
@@ -9,7 +10,7 @@ import TeamCard from 'components/TeamCard';
 import HeroCard from 'components/HeroCard';
 
 export default function Home() {
-  const { team, removeHero } = useContext(Team);
+  const { team, openDeleteModal } = useContext(Team);
   const [teamStats, setTeamStats] = useState({});
 
   useEffect(()=> {
@@ -72,25 +73,27 @@ export default function Home() {
   }, [team]);
 
   return (
-    <Wrapper>
+    <StyledContainer fluid>
       <Row className='navbar-sticky'>
         <Navbar />
       </Row>
       <Row>
-        <InfoTeam xs={12} lg={3}>
+        <StyledCol className='border-col' xs={12} lg={3}>
+          <h4 className='col-title'>Team Stats</h4>
           <TeamCard teamStats={teamStats} />
-        </InfoTeam>
-        <TeamContainer xs={12} lg={9}>
+        </StyledCol>
+        <StyledCol xs={12} lg={9}>
+          <h4 className='col-title'>Your Team</h4>
           <Row>
             {team.length > 0 ? team.map(hero =>
-              <Col className='card-container' xs={12} md={6} lg={6} xl={4}>
-                <HeroCard removeHero={removeHero} key={hero.id} hero={hero} />
+              <Col className='card-container' key={hero.id} xs={12} md={6} lg={6} xl={4}>
+                <HeroCard deleteHero={openDeleteModal} hero={hero} />
               </Col>
             ): <p>No hay equipo</p>}
             <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
           </Row>
-        </TeamContainer>
+        </StyledCol>
       </Row>
-    </Wrapper>
+    </StyledContainer>
   );
 }

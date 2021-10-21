@@ -54,4 +54,4 @@ export const newTheme = {
     warning: 'rgb(234, 114, 8)',
     danger: 'rgb(244, 67, 54)'
   }
-}
+} 

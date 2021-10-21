@@ -11,11 +11,11 @@ const StyledForm = styled(Form)`
   & .form-control {
     border-radius: 0px;
     border: inherit;
-    background: transparent;
+    box-shadow: inherit;
+    background: ${props => props.theme.darkShadesTransparent};
     color: #fff;
     :focus {
-      box-shadow: 0 2px 1px ${props => props.theme.lightAccent};
-      box-shadow: inherit;
+      border-bottom: 1px solid ${props => props.theme.lightAccent};
     }
     ::placeholder {
       color: ${props => props.theme.lightAccent};
@@ -30,6 +30,18 @@ export const SearchForm = styled(StyledForm)`
     button {
       height: auto;
       padding: .3rem .5rem;
+      box-shadow: inherit;
+      background: ${props => props.theme.darkShadesTransparent};
+      :focus, :hover {
+        ${'' /* background: ${props => props.theme.lightAccent}; */}
+        color: ${props => props.theme.main};
+      }
+    }
+  }
+  :focus-within {
+    border-bottom: 1px solid ${props => props.theme.lightAccent};
+    .form-control {
+      border: inherit;
     }
   }
 `;

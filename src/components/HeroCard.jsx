@@ -1,18 +1,9 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { StyledCard, CardList } from 'styled-components/Card';
 import { StyledButton, info, warning } from 'styled-components/Button';
-import { DeleteModal } from './DeleteModal';
 
-export default function HeroCard({hero, removeHero}) {
-  const [deleteModal, setDeleteModal] = useState(false);
+export default function HeroCard({hero, deleteHero}) {
   const card = useRef(null);
-
-  const closeDeleteModal = () => setDeleteModal(false);
-  const openDeleteModal = () => setDeleteModal(true);
-
-  function deleteFromTeam() {
-    removeHero(hero.id);
-  }
 
   function flipCard() {
     card.current.getElementsByClassName('card-front')[0].classList.toggle('flip-front');
@@ -27,7 +18,7 @@ export default function HeroCard({hero, removeHero}) {
           <StyledCard.ImgOverlay>
             <div className='card-actions'>
               <StyledButton className='material-icons' variant={info} onClick={flipCard}>info</StyledButton>
-              <StyledButton className='material-icons' variant={warning} onClick={openDeleteModal}>delete_outline</StyledButton>
+              <StyledButton className='material-icons' variant={warning} onClick={() => deleteHero(hero)}>delete_outline</StyledButton>
             </div>
             <StyledCard.Title>{hero.name}</StyledCard.Title>
             <CardList>
@@ -44,6 +35,7 @@ export default function HeroCard({hero, removeHero}) {
         {/** Details Card */}
 
         <div className='card-back'>
+          <div className='back-img'></div>
           <div className='back-container'>
             <div className='return-box'>
               <StyledButton className='material-icons' variant={info} onClick={flipCard}>reply</StyledButton>
@@ -51,26 +43,26 @@ export default function HeroCard({hero, removeHero}) {
             <CardList>
               <CardList.Item>
                 <span className='title'>Full Name:</span>
-                <span>{hero.biography['full-name']}</span>
+                <span className='value'>{hero.biography['full-name']}</span>
               </CardList.Item>
               <div className='double'>
                 <CardList.Item className='on-row'>
                   <span className='title'>Height:</span>
-                  <span>{hero.appearance.height[1]}</span>
+                  <span className='value'>{hero.appearance.height[1]}</span>
                 </CardList.Item>
                 <CardList.Item className='on-row'>
                   <span className='title'>Weight:</span>
-                  <span>{hero.appearance.weight[1]}</span>
+                  <span className='value'>{hero.appearance.weight[1]}</span>
                 </CardList.Item>
               </div>
               <div className='double'>
                 <CardList.Item className='on-row'>
                   <span className='title'>Eye Color:</span>
-                  <span>{hero.appearance['eye-color']}.</span>
+                  <span className='value'>{hero.appearance['eye-color']}.</span>
                 </CardList.Item>
                 <CardList.Item className='on-row'>
                   <span className='title'>Hair Color:</span>
-                  <span>{hero.appearance['hair-color']}.</span>
+                  <span className='value'>{hero.appearance['hair-color']}.</span>
                 </CardList.Item>
               </div>
               <CardList>
@@ -80,28 +72,19 @@ export default function HeroCard({hero, removeHero}) {
                 <p>
                   {hero.biography.aliases.map((alias, i, {length}) =>
                     i + 1 === length ? 
-                    <span>{alias}.</span>
-                    : <span>{alias},&#32;</span>
+                    <span key={i} className='value'>{alias}.</span>
+                    : <span key={i} className='value'>{alias},&#32;</span>
                   )}
                 </p>
               </CardList>
               <CardList.Item>
                 <span className='title'>Work:</span>
-                <span>{hero.work.base}.</span>
+                <span className='value'>{hero.work.base}.</span>
               </CardList.Item>
             </CardList>
           </div>
         </div>
       </StyledCard>
-
-      {/* StyledModal For delete */}
-      
-      <DeleteModal 
-        name={hero.name} 
-        show={deleteModal} 
-        handleClose={closeDeleteModal} 
-        action={deleteFromTeam}
-      />
     </>
   );
 }

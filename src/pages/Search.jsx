@@ -1,18 +1,18 @@
-import QueryParams from 'hooks/QueryParams';
+import useQueryParams from 'hooks/useQueryParams';
 import Navbar from 'components/Navbar';
-import { Wrapper } from 'styled-components/Wrapper';
+import { StyledContainer } from 'styled-components/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { StyledCol } from 'styled-components/Col';
 import { searchByName } from 'services/SuperheroAPI';
 import { useEffect, useState } from 'react';
-import { SearchList } from 'components/SearchList';
-import { ListContainer } from 'styled-components/List';
+import { SearchCard } from 'components/SearchCard';
 
 export default function Search() {
   const [heroes, setHeroes] = useState([]);
   const [emptyRes, setEmptyRes] = useState(false);
 
-  const query = QueryParams();
+  const query = useQueryParams();
 
   useEffect(()=> {
 
@@ -38,21 +38,28 @@ export default function Search() {
   }, [query]);
 
   return (
-    <Wrapper>
+    <StyledContainer fluid>
       <Row className='navbar-sticky'>
         <Navbar />
       </Row>
-      <Row>
-        <Col as={ListContainer} xs={12} lg={5} className='offset-lg-3'>
-          {emptyRes ?
-            <div>
-              Empty List
-            </div>
-          : 
-            <SearchList heroes={heroes} />
-          }
-        </Col>
-      </Row>
-    </Wrapper>
+        <StyledCol xs={12}>
+          <Row>
+            {emptyRes ?
+              <div>
+                Empty List
+              </div>
+            : 
+              <>
+                <h4 className='col-title'>Search results for: {query.get('query')}</h4>
+                {heroes.map(hero => 
+                  <Col className='card-container' key={hero.id} xs={12} md={4} lg={3}>
+                    <SearchCard hero={hero} />
+                  </Col>
+                )}
+              </>
+            }
+          </Row>
+        </StyledCol>
+    </StyledContainer>
   );
 }

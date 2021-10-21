@@ -1,16 +1,16 @@
 import { createContext, useState, useEffect } from 'react';
-import teamJSON from '../team.json';
+import { DeleteModal } from 'components/DeleteModal';
 
 const Team = createContext();
 const {Consumer, Provider} = Team;
 
 export default function TeamContext({children}) {
   const [team, setTeam] = useState([]);
+  const [heroDelete, setHeroDelete] = useState({});
+  const [deleteModal, setDeleteModal] = useState(false);
 
   function addHero(newHero) {
-
     const teamIsFull = team.length === 6;
-
     const alignmentIsFull = (newHeroAlignment) => team.filter(hero => hero.biography.alignment === newHeroAlignment).length === 3;
 
     if (teamIsFull) {
@@ -30,7 +30,6 @@ export default function TeamContext({children}) {
   }
 
   function removeHero(id) {
-
     const teamIsEmpty = team.length === 0;
 
     if (teamIsEmpty) {
@@ -43,7 +42,22 @@ export default function TeamContext({children}) {
       return newTeam;
     });
     
+    closeDeleteModal();
+    
     return 'Hero removed successfully';
+  }
+
+  /* Options for delete Modal */
+
+  function closeDeleteModal() {
+    let emptyHero = {};
+    setDeleteModal(false);
+    setHeroDelete(emptyHero);
+  } 
+
+  function openDeleteModal(hero) {
+    setDeleteModal(true);
+    setHeroDelete(hero);
   }
 
   useEffect(()=> {
@@ -58,9 +72,18 @@ export default function TeamContext({children}) {
     <Provider value={{
       team: team,
       addHero: addHero,
-      removeHero: removeHero
+      openDeleteModal: openDeleteModal
     }}>
       {children}
+      
+      {/* StyledModal For delete */}
+      
+      <DeleteModal 
+        hero={heroDelete} 
+        show={deleteModal} 
+        handleClose={closeDeleteModal} 
+        action={removeHero}
+      />
     </Provider>
   );
 }

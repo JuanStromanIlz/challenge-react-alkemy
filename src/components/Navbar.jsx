@@ -11,14 +11,13 @@ export default function Navbar() {
       <Container fluid>
         <Col xs={1}>
           <StyledNavbar.Brand href='/'>
-            {/* <img
+            <img
               alt=''
-              src='/logo.svg'
+              src='/icon.svg'
               width='30'
               height='30'
               className='d-inline-block align-top'
-            /> */}
-            ST
+            />
           </StyledNavbar.Brand>
         </Col>
         <Col xs={8} lg={5} className='offset-lg-2 offset-1'>
