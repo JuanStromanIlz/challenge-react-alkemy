@@ -1,4 +1,4 @@
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { SearchForm as StyledForm } from 'styled-components/Form';
@@ -13,7 +13,8 @@ export default function SearchForm() {
   let history = useHistory();
 
   function searchHero(values) {
-    history.push(`/search?query=${values.query}`);
+    let newSearch = values.query;
+    history.push(`/search?query=${newSearch}`);
   }
 
   return (

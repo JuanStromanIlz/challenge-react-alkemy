@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { DeleteModal } from 'components/DeleteModal';
+import MessageToast from 'components/MessageToast';
 
 const Team = createContext();
 const {Consumer, Provider} = Team;
@@ -8,6 +9,9 @@ export default function TeamContext({children}) {
   const [team, setTeam] = useState([]);
   const [heroDelete, setHeroDelete] = useState({});
   const [deleteModal, setDeleteModal] = useState(false);
+  const [openToast, setOpenToast] = useState(true);
+  const [toastType, setToastType] = useState('');
+  const [messageToast, setMessageToast] = useState('');
 
   function addHero(newHero) {
     const teamIsFull = team.length === 6;
@@ -83,6 +87,15 @@ export default function TeamContext({children}) {
         show={deleteModal} 
         handleClose={closeDeleteModal} 
         action={removeHero}
+      />
+
+      {/* Toast for Messages */}
+
+      <MessageToast
+        show={openToast}
+        onClose={setOpenToast}
+        type={toastType}
+        message={messageToast}
       />
     </Provider>
   );

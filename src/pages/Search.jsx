@@ -2,11 +2,11 @@ import useQueryParams from 'hooks/useQueryParams';
 import Navbar from 'components/Navbar';
 import { StyledContainer } from 'styled-components/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { StyledCol } from 'styled-components/Col';
 import { searchByName } from 'services/SuperheroAPI';
 import { useEffect, useState } from 'react';
-import { SearchCard } from 'components/SearchCard';
+import HeroCard from 'components/HeroCard';
+import InfiniteScroll from 'components/InfiniteScroll';
 
 export default function Search() {
   const [heroes, setHeroes] = useState([]);
@@ -35,7 +35,7 @@ export default function Search() {
 
     getHeroFromQuery(query.get('query'));
 
-  }, [query]);
+  }, [query, heroes]);
 
   return (
     <StyledContainer fluid>
@@ -48,14 +48,10 @@ export default function Search() {
               <div>
                 Empty List
               </div>
-            : 
+            :
               <>
                 <h4 className='col-title'>Search results for: {query.get('query')}</h4>
-                {heroes.map(hero => 
-                  <Col className='card-container' key={hero.id} xs={12} md={4} lg={3}>
-                    <SearchCard hero={hero} />
-                  </Col>
-                )}
+                <InfiniteScroll items={heroes} pageItem={HeroCard} />
               </>
             }
           </Row>
