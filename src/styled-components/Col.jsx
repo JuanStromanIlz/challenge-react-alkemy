@@ -13,4 +13,9 @@ export const StyledCol = styled(Col)`
   .card-container:last-child {
     padding-bottom: 0;
   }
+  .center {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+  }
 `;

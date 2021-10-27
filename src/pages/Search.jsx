@@ -9,17 +9,16 @@ import HeroCard from 'components/HeroCard';
 import InfiniteScroll from 'components/InfiniteScroll';
 
 export default function Search() {
+  const [heroToSearch, setHeroToSearch] = useState('');
   const [heroes, setHeroes] = useState([]);
   const [emptyRes, setEmptyRes] = useState(false);
 
   const query = useQueryParams();
-
+  
   useEffect(()=> {
-
     async function getHeroFromQuery(query) {
       try {
         let res = await searchByName(query);
-  
         if (res.response !== 'success') {
           setEmptyRes(true);
           return;
@@ -32,10 +31,12 @@ export default function Search() {
         setEmptyRes(true);
       }
     }
+    setHeroToSearch(query.get('query'));
+    if (heroToSearch !== query.get('query')) {
+      getHeroFromQuery(query.get('query'));
+    }
 
-    getHeroFromQuery(query.get('query'));
-
-  }, [query, heroes]);
+  }, [query, heroToSearch]);
 
   return (
     <StyledContainer fluid>
@@ -45,12 +46,16 @@ export default function Search() {
         <StyledCol xs={12}>
           <Row>
             {emptyRes ?
-              <div>
-                Empty List
-              </div>
+              <StyledCol className='offset-lg-3'>
+                <h4 className='col-title'>No results for: {query.get('query')}</h4>
+              </StyledCol>
             :
               <>
-                <h4 className='col-title'>Search results for: {query.get('query')}</h4>
+                <Row>
+                  <StyledCol className='offset-lg-3'>
+                    <h4 className='col-title'>Search results for: {query.get('query')}</h4>
+                  </StyledCol>
+                </Row>
                 <InfiniteScroll items={heroes} pageItem={HeroCard} />
               </>
             }

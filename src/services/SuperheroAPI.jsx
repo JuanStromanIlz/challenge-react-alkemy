@@ -14,7 +14,7 @@ export async function searchByName(name) {
   try {
     let res = await superHeroInstance.get(`/search/${name}`);
     resHasError(res.data);
-    return res.data
+    return res.data;
   }
   catch(err) {
     return err;

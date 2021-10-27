@@ -10,4 +10,20 @@ export const StyledToastContainer = styled(ToastContainer)`
 
 export const StyledToast = styled(Toast)`
   background: ${props => props.theme.lightAccent};
+  border-radius: 0px;
+  .toast-header {
+    color: ${props => props.variant.color};
+  }
 `;
+
+/* Variants */
+
+export const success = {
+  name: 'Success',
+  color: props => props.theme.states.success
+};
+
+export const alert = {
+  name: 'Alert',
+  color: props => props.theme.states.warning
+};

@@ -11,7 +11,6 @@ const SearchSchema = Yup.object().shape({
 export default function SearchForm() {
 
   let history = useHistory();
-
   function searchHero(values) {
     let newSearch = values.query;
     history.push(`/search?query=${newSearch}`);
@@ -29,7 +28,12 @@ export default function SearchForm() {
         {({ errors, touched }) => (
           <StyledForm as={Form} autoComplete="off">
             <div className='searchInput'>
-              <StyledForm.Control as={Field} name='query' size='sm' placeholder={errors.query && touched.query ? 'Type something' : 'Search a hero'} />
+              <StyledForm.Control 
+                as={Field} 
+                name='query' 
+                size='sm' 
+                placeholder={errors.query && touched.query ? 'Type something' : 'Search a hero'} 
+                />
               <StyledButton className='material-icons' variant={def} type='submit'>search</StyledButton>
             </div>
           </StyledForm>

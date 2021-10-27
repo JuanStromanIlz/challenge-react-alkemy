@@ -13,20 +13,13 @@ export default function HeroCard({hero, simpleCard}) {
     card.current.getElementsByClassName('card-back')[0].classList.toggle('flip-back');
   }
 
-  async function addHeroToTeam(hero) {
-    try {
-      let res = await addHero(hero);
-      console.log(res);
-    }
-    catch (err) {
-      let showError = new Error(err);
-      console.log(showError.message);
-    }
-  }
-
   useEffect(()=> {
     function isAlreadyInTeam(id, team) {
       let isInTeam = team.find(hero => hero.id === id);
+
+      if (!isInTeam) {
+        setAlreadyInTeam(false);
+      }
 
       if (isInTeam) {
         setAlreadyInTeam(true);
@@ -44,7 +37,7 @@ export default function HeroCard({hero, simpleCard}) {
           <StyledCard.Img src={hero.image.url} alt={hero.name} />
           <StyledCard.ImgOverlay>
             <div className='card-actions'>
-              {!alreadyInTeam && <StyledButton className='material-icons' variant={success} onClick={()=> addHeroToTeam(hero)}>person_add</StyledButton>}
+              {!alreadyInTeam && <StyledButton className='material-icons' variant={success} onClick={()=> addHero(hero)}>person_add</StyledButton>}
               {simpleCard ? null : <StyledButton className='material-icons' variant={info} onClick={flipCard}>info</StyledButton>}
               {alreadyInTeam && <StyledButton className='material-icons' variant={warning} onClick={() => openDeleteModal(hero)}>delete_outline</StyledButton>}
             </div>

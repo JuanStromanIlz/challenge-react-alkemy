@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import styled from 'styled-components';
 
 export const StyledContainer = styled(Container)`
+  padding-bottom: 1rem;
   .navbar-sticky {
     position: sticky;
     top: 0;

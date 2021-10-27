@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { success, alert } from 'styled-components/Toast';
 import { DeleteModal } from 'components/DeleteModal';
 import MessageToast from 'components/MessageToast';
 
@@ -9,7 +10,7 @@ export default function TeamContext({children}) {
   const [team, setTeam] = useState([]);
   const [heroDelete, setHeroDelete] = useState({});
   const [deleteModal, setDeleteModal] = useState(false);
-  const [openToast, setOpenToast] = useState(true);
+  const [openToast, setOpenToast] = useState(false);
   const [toastType, setToastType] = useState('');
   const [messageToast, setMessageToast] = useState('');
 
@@ -18,10 +19,12 @@ export default function TeamContext({children}) {
     const alignmentIsFull = (newHeroAlignment) => team.filter(hero => hero.biography.alignment === newHeroAlignment).length === 3;
 
     if (teamIsFull) {
-      throw new Error('Team is full already.');
+      return openMessageToast(alert, 'Team is full already.');
+      // throw new Error('Team is full already.');
     }
     if (alignmentIsFull(newHero.biography.alignment)) {
-      throw new Error(`You need to pickup a hero with ${newHero.biography.alignment === 'good' ? 'bad' : 'good' } alignment, the ${newHero.biography.alignment} side is already full.`);
+      return openMessageToast(alert, `You need to pickup a hero with ${newHero.biography.alignment === 'good' ? 'bad' : 'good' } alignment, the ${newHero.biography.alignment} side is already full.`);
+      // throw new Error(`You need to pickup a hero with ${newHero.biography.alignment === 'good' ? 'bad' : 'good' } alignment, the ${newHero.biography.alignment} side is already full.`);
     }
 
     setTeam(prevTeam => {
@@ -29,15 +32,16 @@ export default function TeamContext({children}) {
       localStorage.setItem('superheroTeam', JSON.stringify(newTeam));
       return newTeam;
     });
-
-    return 'Hero added successfully.';
+    return openMessageToast(success, 'Hero added successfully.');
+    // return 'Hero added successfully.';
   }
 
   function removeHero(id) {
     const teamIsEmpty = team.length === 0;
 
     if (teamIsEmpty) {
-      throw new Error('Team is empty.');
+      return openMessageToast(alert, 'Team is empty.');
+      // throw new Error('Team is empty.');
     }
     
     setTeam(prevTeam => {
@@ -47,8 +51,8 @@ export default function TeamContext({children}) {
     });
     
     closeDeleteModal();
-    
-    return 'Hero removed successfully';
+    return openMessageToast(success, 'Hero removed successfully');
+    // return 'Hero removed successfully';
   }
 
   /* Options for delete Modal */
@@ -62,6 +66,12 @@ export default function TeamContext({children}) {
   function openDeleteModal(hero) {
     setDeleteModal(true);
     setHeroDelete(hero);
+  }
+
+  function openMessageToast(typeOf, message) {
+    setToastType(typeOf);
+    setMessageToast(message);
+    setOpenToast(true);
   }
 
   useEffect(()=> {
