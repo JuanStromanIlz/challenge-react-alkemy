@@ -79,19 +79,27 @@ export default function Home() {
       </Row>
       <Row>
         <StyledCol className='border-col' xs={12} lg={3}>
-          <h4 className='col-title'>Team Stats</h4>
-          <TeamCard teamStats={teamStats} />
+        {team.length > 0 ?
+          <div className='sticky-col'>
+            <h4 className='col-title'>Team Stats</h4>
+              <TeamCard teamStats={teamStats} members={team.length} />
+          </div>
+        : null}
         </StyledCol>
         <StyledCol xs={12} lg={9}>
-          <h4 className='col-title'>Your Team</h4>
-          <Row>
-            {team.length > 0 ? team.map(hero =>
-              <Col className='card-container' key={hero.id} xs={12} md={6} lg={6} xl={4}>
-                <HeroCard deleteHero={openDeleteModal} hero={hero} />
-              </Col>
-            ): <p>No hay equipo</p>}
-            <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
-          </Row>
+          {team.length > 0 ? 
+            <>
+              <h4 className='col-title'>Your Team</h4>
+              <Row>
+                {team.map(hero =>
+                  <Col className='card-container' key={hero.id} xs={12} md={6} lg={6} xl={4}>
+                    <HeroCard deleteHero={openDeleteModal} hero={hero} />
+                  </Col>
+                )}
+                <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
+              </Row>
+            </>
+          : <h4 className='col-title'>Your Team is empty</h4>}
         </StyledCol>
       </Row>
     </StyledContainer>

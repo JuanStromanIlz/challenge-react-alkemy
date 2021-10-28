@@ -110,9 +110,6 @@ export const StyledCard = styled(Card)`
 export const CardList = styled(ListGroup)`
   display: grid;
   grid-template-columns: 50% 50%;
-  ${'' /* span {
-    color: ${props => props.theme.lightAccent};
-  } */}
   & .list-group-item {
     color: ${props => props.theme.lightAccent};
     filter: saturate(200%);

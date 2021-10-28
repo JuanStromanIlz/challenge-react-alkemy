@@ -13,8 +13,7 @@ export const StyledButton = styled(Button)`
   font-weight: 600;
   text-transform: capitalize;
   &:focus, &:active {
-    box-shadow: 0px 0px 0px 2px ${props => props.variant.background};
-    box-shadow: inherit;
+    box-shadow: 0px 0px 0px 2px ${props => props.variant.color};
   }
   @media (hover: hover) {
     &:hover {
