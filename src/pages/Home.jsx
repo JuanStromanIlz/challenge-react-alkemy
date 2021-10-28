@@ -8,14 +8,27 @@ import { Team } from 'context/TeamContext';
 import { useState } from 'react';
 import TeamCard from 'components/TeamCard';
 import HeroCard from 'components/HeroCard';
+import Loading from 'styled-components/Loading';
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const { team, openDeleteModal } = useContext(Team);
   const [teamStats, setTeamStats] = useState({});
 
   useEffect(()=> {
     
-    const sumStats = (stats) => stats.reduce((a, b) => a + parseInt(b), 0);
+    function isNumber(array) {
+      return array.map(el => {
+        if (isNaN(parseInt(el))) {
+          return 0;
+        } else {
+          return parseInt(el);
+        }
+      });
+      
+    }
+
+    const sumStats = (stats) => stats.reduce((a, b) => a + b, 0);
 
     const teamIsEmpty = (team) => team.length === 0;
     
@@ -29,7 +42,9 @@ export default function Home() {
         let key = keyInObjects[i];
         let valuePerHero = teamStats.map(hero => hero[key]);
 
-        globalStats.push([key, sumStats(valuePerHero)]);
+        let valueToNumber = isNumber(valuePerHero);
+
+        globalStats.push([key, sumStats(valueToNumber)]);
       }
       /* sort from max to min */
       globalStats = globalStats.sort((a, b) => {
@@ -70,6 +85,10 @@ export default function Home() {
       globalStats(team);
       weightAndHeight(team);
     }
+
+    return ()=> {
+      setLoading(false);
+    }
   }, [team]);
 
   return (
@@ -78,29 +97,35 @@ export default function Home() {
         <Navbar />
       </Row>
       <Row>
-        <StyledCol className='border-col' xs={12} lg={3}>
-        {team.length > 0 ?
-          <div className='sticky-col'>
-            <h4 className='col-title'>Team Stats</h4>
-              <TeamCard teamStats={teamStats} members={team.length} />
-          </div>
-        : null}
-        </StyledCol>
-        <StyledCol xs={12} lg={9}>
-          {team.length > 0 ? 
-            <>
-              <h4 className='col-title'>Your Team</h4>
-              <Row>
-                {team.map(hero =>
-                  <Col className='card-container' key={hero.id} xs={12} md={6} lg={6} xl={4}>
-                    <HeroCard deleteHero={openDeleteModal} hero={hero} />
-                  </Col>
-                )}
-                <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
-              </Row>
-            </>
-          : <h4 className='col-title'>Your Team is empty</h4>}
-        </StyledCol>
+        {loading ?
+          <Loading />
+        :
+          <>
+            <StyledCol className='border-col' xs={12} lg={3}>
+            {team.length > 0 ?
+              <div className='sticky-col'>
+                <h4 className='col-title'>Team Stats</h4>
+                  <TeamCard teamStats={teamStats} members={team.length} />
+              </div>
+            : null}
+            </StyledCol>
+            <StyledCol xs={12} lg={9}>
+              {team.length > 0 ? 
+                <>
+                  <h4 className='col-title'>Your Team</h4>
+                  <Row>
+                    {team.map(hero =>
+                      <Col className='card-container' key={hero.id} xs={12} md={6} lg={6} xl={4}>
+                        <HeroCard deleteHero={openDeleteModal} hero={hero} />
+                      </Col>
+                    )}
+                    <Col className='card-container' xs={12} md={6} lg={6} xl={4}></Col>
+                  </Row>
+                </>
+              : <h4 className='col-title'>Your Team is empty</h4>}
+            </StyledCol>
+          </>
+        }
       </Row>
     </StyledContainer>
   );

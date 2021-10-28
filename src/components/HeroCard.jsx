@@ -49,7 +49,7 @@ export default function HeroCard({hero, simpleCard}) {
                 {Object.entries(hero.powerstats).map(power => 
                   <CardList.Item key={power[0]}>
                     <span className={`title ${power[0]}`}>{power[0]}:</span>
-                    <span>{power[1]}</span>
+                    <span>{isNaN(power[1]) ? 0 : power[1]}</span>
                   </CardList.Item>
                 )}
               </CardList>

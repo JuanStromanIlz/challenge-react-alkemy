@@ -119,15 +119,15 @@ export const CardList = styled(ListGroup)`
     display: flex;
     flex-direciton: row;
     margin-bottom: .125rem;
-    .title {
-      font-weight: bold;
-      margin-right: .5rem;
-      text-transform: capitalize;
-    }
-    .value {
-      filter: saturate(200%);
-      color: ${props => props.theme.states.info};
-    }
+  }
+  .title {
+    font-weight: bold;
+    margin-right: .5rem;
+    text-transform: capitalize;
+  }
+  .value {
+    filter: saturate(200%);
+    color: ${props => props.theme.states.info};
   }
   & .list-group-item:last-child {
     margin-bottom: 0;
